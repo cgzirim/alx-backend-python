@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Defines the function measure_time."""
 import time
-wait_n = __import__('1-concurrent_coroutines').wait_n
+
+wait_n = __import__("1-concurrent_coroutines").wait_n
 
 
 def measure_time(n, maxdelay):
