@@ -1,4 +1,4 @@
-#!/usr/bin/env pyhton3
+#!/usr/bin/env python3
 """Defines a test class for util.access_nested_map."""
 import unittest
 from utils import access_nested_map
