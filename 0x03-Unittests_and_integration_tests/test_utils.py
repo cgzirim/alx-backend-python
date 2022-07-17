@@ -1,10 +1,7 @@
 #!/usr/bin/env python3
 """Defines test classes to test fuctions in ./utils."""
-from ast import expr_context
 import unittest
-from unittest.mock import patch
-
-from defer import return_value
+from unittest.mock import patch, Mock
 from utils import get_json
 from utils import access_nested_map
 from parameterized import parameterized
@@ -44,10 +41,10 @@ class TestGetJson(unittest.TestCase):
             ('http://example.com', {"payload": True}),
             ('http://holberton.io', {"payload": False})
         ])
-    @patch("client.get_json")
-    def test_get_json(self, url, expected, mock_get_json):
+    def test_get_json(self, url, expected):
         """Tests that utils.get_json returns the expected result."""
-        mock_get_json.return_value = expected
-        self.assertEqual(mock_get_json(url), expected)
-        # assert get_json(url) == expected
-        mock_get_json.assert_called_once()
+        mock_response = Mock()
+        mock_response.json.return_value = expected
+        with patch('requests.get', return_value=mock_response):
+            self.assertEqual(get_json(url), expected)
+            mock_response.json.assert_called_once()
